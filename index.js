@@ -1,6 +1,6 @@
-var totalCutAmount = 1
-
-
+var totalCutAmount = 1;
+var cutCounter = 1;
+var cutNumColumn = [];
 function readFile() {
     document.getElementById('uploadForm').addEventListener('submit', function(event) {
         event.preventDefault(); 
@@ -36,7 +36,7 @@ function readFile() {
                 if (data.workerSWIFTcode) document.getElementById("workerSWIFTcode").value = data.workerSWIFTcode;
                 if (data.workerBankBranchName) document.getElementById("workerBankBranchName").value = data.workerBankBranchName;
                 if (data.workerIBANcode) document.getElementById("workerIBANcode").value = data.workerIBANcode;
-
+                if (data.workerCompany) document.getElementById("studioName").value = data.workerCompany;
             } catch (error) {
                 console.error("Could not parse JSON file layout:", error);
                 alert("Error reading file. Ensure it is formatted correctly.");
@@ -54,110 +54,164 @@ function readFile() {
 readFile();
 
 
-
-
-function addRow(){
+function addRow({ mode = "below", clickedButton = null } = {}) {
+    const table = document.getElementById("invoiceBody").closest("table");
     const tbody = document.getElementById("invoiceBody");
-    const newRow = tbody.insertRow();
-    newRow.className = "invoice-row"; // Ensure new rows have the hover class
 
-    const cutNum1 = newRow.insertCell(0);
-    const cutType2 = newRow.insertCell(1);
-    const cutAmount3 = newRow.insertCell(2);
+    let newRow;
+    let nextNumber;
 
-    var currentCutNumber = parseInt(document.getElementById("cutNumberInput").value) || 0;
-    var nextCutNumber = currentCutNumber + 1;
 
-    // Notice the row-trigger div is baked right into the first cell layout
-    cutNum1.innerHTML = `
-        <p>c<input type="text" value="${nextCutNumber}"></p>
-        <div class="row-trigger" onclick="addRow()">+</div>
-    `;
-    
-    totalCutAmount += 1
-    document.getElementById("cutNumberInput").value = nextCutNumber;
+    if (mode === "below") {
+        cutCounter += 1;
+        nextNumber = cutCounter;
 
-    cutType2.innerHTML = '<form action=""><select id="jobType" name="job"><option value="LO">LO</option><option value="GENGA">GENGA</option><option value="SAKKAN">SAKKAN</option><option value="DOUGA">DOUGA</option></select></form>';
-    
-    cutAmount3.innerHTML = '<input type="text" <form action=""><select id="moneyCurrency" name="currency"><option value="YEN">¥</option><option value="USD">$</option><option value="POUND">£</option><option value="WON">₩</option></select></form>';
-    
-    cutAmountUpdate()
-    console.debug(totalCutAmount)
-}
+        newRow = tbody.insertRow();
 
-function addRowBetween(clickedButton) {
 
-    const currentRow = clickedButton.closest("tr");
-    
-
-    const currentIndex = currentRow.rowIndex;
-    
-
-    const table = currentRow.closest("table");
-    
-
-    const currentInput = currentRow.querySelector('#cutNumber td input, td:first-child input');
-    var currentRowNumber = currentInput ? parseInt(currentInput.value) : 0;
-
-    if (isNaN(currentRowNumber)) {
-        currentRowNumber = 0;
+        const input = document.getElementById("cutNumberInput");
+        if (input) input.value = cutCounter;
     }
 
 
-    var nextCutNumber = currentRowNumber + 1;
+    if (mode === "between" && clickedButton) {
+        const currentRow = clickedButton.closest("tr");
+        const input = currentRow.querySelector("td input");
 
+        let base = parseInt(input?.value) || 0;
 
-    const newRow = table.insertRow(currentIndex + 1);
-    newRow.className = "invoice-row"; 
+        nextNumber = base + 1;
 
+        const index = currentRow.rowIndex;
+        newRow = table.insertRow(index + 1);
+    }
 
-    const cutNum1 = newRow.insertCell(0);
-    const cutType2 = newRow.insertCell(1);
-    const cutAmount3 = newRow.insertCell(2);
+    buildRow(newRow, nextNumber, mode);
 
-    cutNum1.innerHTML = `
-        <p>c<input type="text" value="${nextCutNumber}"></p>
-        <div class="row-trigger" onclick="addRowBetween(this)">+</div>
-    `;
-    
-    totalCutAmount +=1
-    
-    cutType2.innerHTML = '<form action=""><select id="jobType" name="job"><option value="LO">LO</option><option value="GENGA">GENGA</option><option value="SAKKAN">SAKKAN</option><option value="DOUGA">DOUGA</option></select></form>';
-    
-    cutAmount3.innerHTML = '<input type="text" <form action=""><select id="moneyCurrency" name="currency"><option value="YEN">¥</option><option value="USD">$</option><option value="POUND">£</option><option value="WON">₩</option></select></form>';
-    
-    console.debug(`Inserted row at index ${currentIndex + 1} with dynamic value: ${nextCutNumber}`);
-    cutAmountUpdate()
-    console.debug(totalCutAmount)
+    totalCutAmount += 1;
+    cutAmountUpdate();
 }
 
 
-function cutAmountUpdate(){
-    const cutTotalElement = document.getElementById("totalCutNumbers");
-    cutTotalElement.value = totalCutAmount;
-    console.debug("update toal cuts")
+function buildRow(row, number, mode) {
+    row.className = "invoice-row";
 
+    const cutNum1 = row.insertCell(0);
+    const cutType2 = row.insertCell(1);
+    const cutAmount3 = row.insertCell(2);
+
+    const handler =
+        mode === "below"
+            ? "addRow({ mode: 'below' })"
+            : "addRow({ mode: 'between', clickedButton: this })";
+
+    cutNum1.innerHTML = `
+        <p>c<input type="text" value="${number}"class="cutNumberInput"></p>
+        <div class="row-trigger" onclick="${handler}">+</div>
+    `;
+
+    cutType2.innerHTML = `
+        <select class="typeSelection">
+            <option value="LO">LO</option>
+            <option value="NIGEN">NIGEN</option>
+            <option value="GENGA">GENGA</option>
+            <option value="SAKKAN">SAKKAN</option>
+            <option value="DOUGA">DOUGA</option>
+        </select>
+    `;
+
+    cutAmount3.innerHTML = `
+            <input type="text" <form action="" class="moneyAmountFields">
+            <select id="moneyCurrency" name="currency" class="moneyAmountCurrency">
+            <option value="YEN">¥</option>
+            <option value="USD">$</option>
+            <option value="POUND">£</option>
+            <option value="WON">₩</option>
+            </select>
+    `;
+}
+
+// function totalMoneyAmount(){
+//     document.getElementById("totalAmount").value = 
+// }
+function cutAmountUpdate() {
+    document.getElementById("totalCutNumbers").value = totalCutAmount;
 }
 
 
 function removeRow() {
     const tbody = document.getElementById("invoiceBody");
-    
+
     if (tbody.rows.length > 1) {
         tbody.deleteRow(-1);
-        totalCutAmount -=1
-        cutAmountUpdate()
-        console.debug("Row removed successfully");
-    } else {
-        console.warn("No rows left to remove!");
+        totalCutAmount -= 1;
+        cutAmountUpdate();
     }
 }
 
 function cutNumberColumnClear(){
+    const allCutNumberElements = document.querySelectorAll('.cutNumberInput');
+  
+    allCutNumberElements.forEach(element => {
+        element.value = ""
+    });
+ 
+
+
+    console.log(allCutNumberElements)
 
 }
 function applyAllType(){
-    console.debug("Apply all")
+    const allCutNumberElements = document.querySelectorAll('.typeSelection');
+  
+    if(allCutNumberElements.length === 0){
+        return;
+    }
+
+    const firstValue = allCutNumberElements[0].value
+
+    allCutNumberElements.forEach(selection => {
+        const firstElementValue = selection[0]
+        selection.value = firstValue;
+    });
+ 
+}
+
+function applyAllMoneyAmount() {
+    const amountFields = document.querySelectorAll('.moneyAmountFields');
+    const currencyFields = document.querySelectorAll('.moneyAmountCurrency');
+
+    if (amountFields.length === 0 || currencyFields.length === 0) return;
+
+    const firstAmount = amountFields[0].value;
+    const firstCurrency = currencyFields[0].value;
+    var amount = 0
+    var applyFirstCurrency;
+
+    const totalAmountInput = document.getElementById("totalAmount");
+    amountFields.forEach(input => {
+        input.value = firstAmount;
+        amount += parseInt(input.value);
+        totalAmountInput.value = String(amount) + " " + firstCurrency
+    });
+
+    currencyFields.forEach(select => {
+        select.value = firstCurrency;
+        applyFirstCurrency = firstCurrency.value
+        console.log(firstCurrency)
+    });
+}
+
+function applyCutNumbersSequential() {
+    const allCutNumberElements = document.querySelectorAll('.cutNumberInput');
+
+    if (allCutNumberElements.length === 0) return;
+
+    const base = parseInt(allCutNumberElements[0].value) || 1;
+
+    for (let i = 1; i < allCutNumberElements.length; i++) {
+        allCutNumberElements[i].value = base + i;
+    }
 }
 
 function sequenceNumbers(){

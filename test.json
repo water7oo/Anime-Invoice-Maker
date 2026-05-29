@@ -1,8 +1,8 @@
 {
-    "workerName" : "warts",
-    "workerAddress" : "redacted",
+    "workerName" : "Jackson",
+    "workerAddress" : "my house",
     "workerCountry" : "United States of America",
-    "workerSignature" : "warts",
+    "workerSignature" : "BN",
 
 
     "workerAccountHolderName" : "warts" ,
@@ -12,5 +12,6 @@
     "workerWireNumer" : "warts" ,
     "workerSWIFTcode" : "warts" ,
     "workerBankBranchName" : "warts" ,
-    "workerIBANcode" : "warts" 
+    "workerIBANcode" : "warts",
+    "workerCompany" : "AnimeStudio"
 }
