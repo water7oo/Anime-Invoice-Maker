@@ -1,5 +1,61 @@
 var totalCutAmount = 1
 
+
+function readFile() {
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        const fileInput = document.getElementById('fileUpload');
+
+        if (fileInput.files.length === 0) {
+            alert('Select a file first!');
+            return;
+        }
+
+        const file = fileInput.files[0]; 
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            try {
+
+                const data = JSON.parse(e.target.result); 
+                console.log("JSON parsed successfully:", data);
+
+    
+                if (data.workerName) document.getElementById("workerName").value = data.workerName;
+                if (data.workerAddress) document.getElementById("workerAddress").value = data.workerAddress;
+                if (data.workerCountry) document.getElementById("workerCountry").value = data.workerCountry;
+                if (data.workerSignature) document.getElementById("workerSignature").value = data.workerSignature;
+                
+
+                if (data.workerAccountHolderName) document.getElementById("workerAccountHolderName").value = data.workerAccountHolderName;
+                if (data.workerBankName) document.getElementById("workerBankName").value = data.workerBankName;
+                if (data.workerBankAddress) document.getElementById("workerBankAddress").value = data.workerBankAddress;
+                if (data.workerAccountNumber) document.getElementById("workerAccountNumber").value = data.workerAccountNumber;
+                if (data.workerWireNumer) document.getElementById("workerWireNumer").value = data.workerWireNumer;
+                if (data.workerSWIFTcode) document.getElementById("workerSWIFTcode").value = data.workerSWIFTcode;
+                if (data.workerBankBranchName) document.getElementById("workerBankBranchName").value = data.workerBankBranchName;
+                if (data.workerIBANcode) document.getElementById("workerIBANcode").value = data.workerIBANcode;
+
+            } catch (error) {
+                console.error("Could not parse JSON file layout:", error);
+                alert("Error reading file. Ensure it is formatted correctly.");
+            }
+        };
+
+        reader.onerror = function() {
+            console.error("Error reading the file:", reader.error);
+        };
+
+        reader.readAsText(file);
+    });
+}
+
+readFile();
+
+
+
+
 function addRow(){
     const tbody = document.getElementById("invoiceBody");
     const newRow = tbody.insertRow();

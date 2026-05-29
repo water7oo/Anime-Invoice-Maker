@@ -12,53 +12,47 @@
 <body>
     <h1>ANIME WORKER INVOICE 請求書</h1>
 
-
     <div class="settings">
         <div class="btn" id="addRow">
             <button id="addRowBtn" onclick="addRow()">ADD ROW</button>
             <button id="removeRowBtn" onclick="removeRow()">REMOVE ROW</button>
             <button id="clearAll" onclick="clearAll()">CLEAR ALL</button>
             <button id="export" onclick="exportFile()">EXPORT</button>
-            <button id="import" onclick="importFile()">IMPORT</button>
+
+            <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="fileUpload">
+                <button type="submit" id="submitBtn">IMPORT</button>
+            </form>
         </div>
-
-
-
     </div>
+
+    <pre id="fileContentDisplay"></pre>
 
     <div class="settings">
         <div id="studioContainer">
-            <p>STUDIO<input type="text"></p>
+            <p>STUDIO<input type="text" id="studioName"></p>
         </div>
-
         <div id="signatureContainer">
-            <p>Signature<input type="text"></p>
+            <p>Signature<input type="text" id="workerSignature"></p>
         </div>
-
     </div>
 
     <div class="settings">
         <div id="workerDetails">
-            <p>Name<input type="text" value=""> 様</p>
-            <p>Address<input type="text"></p>
-            <p>Country<input type="text"></p>
-
-            <div id=date>
-
+            <p>Name<input type="text" value="" id="workerName"> 様</p>
+            <p>Address<input type="text" id="workerAddress"></p>
+            <p>Country<input type="text" id="workerCountry"></p>
+            <div id="date">
                 <input type="date">
-
             </div>
         </div>
-
-
     </div>
-
 
     <center>
         <h2>INVOICE 請求書</h2>
     </center>
-    </div>
-    <div class=" master">
+
+    <div class="master">
         <table class="greyGridTable">
             <thead>
                 <tr>
@@ -110,61 +104,56 @@
                         </select>
                         </form>
 
-
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-
     <center>
         <h2>BANK INFORMATION 銀行情報</h2>
     </center>
+
     <div class="master">
-
         <table class="greyGridTable">
-
-
             <tbody>
                 <tr>
                     <td>Account Holders Name</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="workerAccountHolderName"></td>
                 </tr>
                 <tr>
                     <td>Bank Name</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="workerBankName"></td>
                 </tr>
                 <tr>
                     <td>Bank Address</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="workerBankAddress"></td>
                 </tr>
                 <tr>
                     <td>Account Number</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="workerAccountNumber"></td>
                 </tr>
                 <tr>
                     <td>Wire Number</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="workerWireNumer"></td>
                 </tr>
                 <tr>
                     <td>SWIFT code</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="workerSWIFTcode"></td>
                 </tr>
                 <tr>
                     <td>Bank Branch Name</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="workerBankBranchName"></td>
                 </tr>
                 <tr>
                     <td>IBAN code</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="workerIBANcode"></td>
                 </tr>
             </tbody>
-            </tr>
         </table>
     </div>
-</body>
 
-<script src="index.js" defer></script>
+    <script src="index.js" defer></script>
+</body>
 
 </html>
