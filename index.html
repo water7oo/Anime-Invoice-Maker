@@ -1,11 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Generator</title>
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/index2.css">
 </head>
+
 <body>
-    <h1> Invoice maker</h1>
+    <h1>ANIME WORKER INVOICE 請求書</h1>
+
+
+    <div class="settings">
+        <div class="btn" id="addRow">
+            <button id="addRowBtn" onclick="addRow()">ADD ROW</button>
+            <button id="removeRowBtn" onclick="removeRow()">REMOVE ROW</button>
+            <button id="clearAll" onclick="clearAll()">CLEAR ALL</button>
+            <button id="export" onclick="exportFile()">EXPORT</button>
+            <button id="import" onclick="importFile()">IMPORT</button>
+        </div>
+
+
+
+    </div>
+
+    <div class="settings">
+        <div id="studioContainer">
+            <p>STUDIO<input type="text"></p>
+        </div>
+
+        <div id="signatureContainer">
+            <p>Signature<input type="text"></p>
+        </div>
+
+    </div>
+
+    <div class="settings">
+        <div id="workerDetails">
+            <p>Name<input type="text" value=""> 様</p>
+            <p>Address<input type="text"></p>
+            <p>Country<input type="text"></p>
+
+            <div id=date>
+
+                <input type="date">
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <center>
+        <h2>INVOICE 請求書</h2>
+    </center>
+    </div>
+    <div class=" master">
+        <table class="greyGridTable">
+            <thead>
+                <tr>
+                    <th>
+                        <p>Number</p> <button id="clearNumColumn">Clear Column</button>
+                    </th>
+                    <th>
+                        <p>Type</p> <button id="applyAllType">Apply All</button>
+                    </th>
+                    <th>
+                        <p>Amount</p> <button id="applyAllAmount">Apply All</button>
+                    </th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td>
+                        <p>Total cuts:<input type="text" id="totalCutNumbers"></p>
+                    </td>
+                    <td>
+                        <p>Total Amount: <input type="text" id="totalAmount"></p>
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody id="invoiceBody">
+                <tr class="invoice-row">
+                    <td id="cutNumber">
+                        <p>c<input type="text" id="cutNumberInput"></p>
+                        <div class="row-trigger" onclick="addRowBetween(this)">+</div>
+                    </td>
+                    <td id="cutType">
+                        <form action="">
+                            <select id="jobType" name="job">
+                                <option value="LO">LO</option>
+                                <option value="GENGA">GENGA</option>
+                                <option value="SAKKAN">SAKKAN</option>
+                                <option value="DOUGA">DOUGA</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td id="cutAmount">
+                        <input type="text" <form action="">
+                        <select id="moneyCurrency" name="currency">
+                            <option value="YEN">¥</option>
+                            <option value="USD">$</option>
+                            <option value="POUND">£</option>
+                            <option value="WON">₩</option>
+                        </select>
+                        </form>
+
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <center>
+        <h2>BANK INFORMATION 銀行情報</h2>
+    </center>
+    <div class="master">
+
+        <table class="greyGridTable">
+
+
+            <tbody>
+                <tr>
+                    <td>Account Holders Name</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Bank Name</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Bank Address</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Account Number</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Wire Number</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>SWIFT code</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Bank Branch Name</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>IBAN code</td>
+                    <td><input type="text"></td>
+                </tr>
+            </tbody>
+            </tr>
+        </table>
+    </div>
 </body>
+
+<script src="index.js" defer></script>
+
 </html>
