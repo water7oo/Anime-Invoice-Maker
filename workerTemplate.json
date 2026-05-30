@@ -1,0 +1,20 @@
+{
+    "workerName" : "--",
+    "workerPenName" : "--",
+    "workerAddress" : "--",
+    "workerCountry" : "--",
+    "workerSignature" : "--",
+    "workerPhoneNumber" : "--",
+
+
+    "workerAccountHolderName" : "--" ,
+    "workerBankName" : "--" ,
+    "workerBankAddress" : "--" ,
+    "workerAccountNumber" : "--" ,
+    "workerWireNumer" : "--" ,
+    "workerSWIFTcode" : "--" ,
+    "workerBankBranchName" : "--" ,
+    "workerIBANcode" : "--",
+    "workerCompany" : "--"
+}
+

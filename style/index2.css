@@ -7,7 +7,7 @@ table.greyGridTable {
 }
 table.greyGridTable td, table.greyGridTable th {
   border: 1px none #FFFFFF;
-  padding: 3px 4px;
+  padding: 0.25em 4px;
 }
 table.greyGridTable tbody td {
   font-size: 13px;
@@ -15,12 +15,16 @@ table.greyGridTable tbody td {
 table.greyGridTable td:nth-child(even) {
   background: rgb(221, 221, 221);
 }
+
+table.greyGridTable td:nth-child(odd) {
+  background: rgb(255, 255, 255);
+}
 table.greyGridTable thead {
   background: #ffffff;
   border-bottom: 4px solid #333333;
 }
 table.greyGridTable thead th {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: bold;
   color: #767676;
   text-align: center;
@@ -32,14 +36,14 @@ table.greyGridTable thead th:first-child {
 }
 
 table.greyGridTable tfoot {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: bold;
   color: #545454;
   background: #FFFFFF;
   border-top: 2px none #333333;
 }
 table.greyGridTable tfoot td {
-  font-size: 13px;
+  font-size: 11px;
   
 }
 
