@@ -126,7 +126,7 @@ function buildRow(row, number, mode) {
     `;
 
     cutAmount3.innerHTML = `
-            <input type="text" class="moneyAmountFields" id="moneyAmountFieldsID" style="    max-width: 40px;height: 20px;">
+            <input oninput="updateTotalAmount()" type="text" class="moneyAmountFields" id="moneyAmountFieldsID" style="    max-width: 40px;height: 20px;">
             <select id="moneyCurrency" name="currency" class="moneyAmountCurrency">
                 <option value="¥">¥</option>
                 <option value="$">$</option>
@@ -166,6 +166,19 @@ function cutNumberColumnClear(){
 
     console.log(allCutNumberElements)
 
+}
+
+
+function amountColumnClear(){
+        const allAmountElements = document.querySelectorAll('.moneyAmountFields');
+  
+    allAmountElements.forEach(element => {
+        element.value = ""
+    });
+ 
+
+
+    console.log(allAmountElements)
 }
 function applyAllType(){
     const allCutNumberElements = document.querySelectorAll('.typeSelection');
@@ -290,3 +303,20 @@ function toggleMenu(){
 
 }
 
+function updateTotalAmount(){
+    const amountFields = document.querySelectorAll('.moneyAmountFields');
+    const currencyFields = document.querySelectorAll('.moneyAmountCurrency');
+
+    const firstAmount = amountFields[0].value;
+    const firstCurrency = currencyFields[0].value;
+    var amount = 0
+    var applyFirstCurrency;
+
+    const totalAmountInput = document.getElementById("totalAmount");
+    amountFields.forEach(input => {
+        amount += parseInt(input.value);
+        totalAmountInput.value = String(amount) + " " + firstCurrency
+    });
+
+    // totalAmountInput.value = String(amount) + " " + firstCurrency
+}

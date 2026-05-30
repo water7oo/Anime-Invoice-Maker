@@ -72,7 +72,10 @@
                 <button id="clearFile" onclick="clearCurrentFile()">CLEAR FILE</button>
                 <input type="file" name="file" id="fileUpload" class="fileUploading">
                 <button type="submit" id="submitBtn">APPLY</button>
-                <button id="export" onclick="window.print()">EXPORT</button>
+                <button id="export" onclick="window.print()">EXPORT PDF</button>
+                <a href="workerTemplate.json" download="workerTemplate.json">
+                    <button type="button">DOWNLOAD JSON</button>
+                </a>
             </form>
 
             <button onclick="addRow({ mode: 'below' })" class="invoiceBtns">ADD ROW</button>
@@ -92,16 +95,15 @@
                 <thead>
                     <tr>
                         <th>
-                            <p>Number 項目</p> <button id="clearNumColumn" onclick="cutNumberColumnClear()">Clear
-                                Column</button><button id="applyAllType" onclick="applyCutNumbersSequential()">Sequence
-                                Numbers</button>
+                            <p>Number 項目</p> <button id="clearNumColumn" onclick="cutNumberColumnClear()">CLEAR
+                                COLUMN</button><button id="applyAllType" onclick="applyCutNumbersSequential()">SEQUENCED CUT ORDER</button>
                         </th>
                         <th>
-                            <p>Type 種類</p> <button id="applyAllType" onclick="applyAllType()">Apply All</button>
+                            <p>Type 種類</p> <button id="applyAllType" onclick="applyAllType()">APPLY TYPE</button>
                         </th>
                         <th>
-                            <p>Subtotal 小計</p> <button id="applyAllAmount" onclick="applyAllMoneyAmount()">Apply
-                                All</button>
+                            <p>Subtotal 小計</p><button id="clearNumColumn" onclick="amountColumnClear()">CLEAR COLUMN</button> <button id="applyAllAmount" onclick="applyAllMoneyAmount()">Apply
+                                AMOUNT</button>
                         </th>
                     </tr>
                 </thead>
@@ -135,7 +137,8 @@
                             </form>
                         </td>
                         <td id="cutAmount">
-                            <input type="text" class="moneyAmountFields" id="moneyAmountFieldsID" style="    max-width: 40px;
+                            <input oninput="updateTotalAmount()" type="text" class="moneyAmountFields"
+                                id="moneyAmountFieldsID" style="    max-width: 40px;
     height: 20px;">
 
                             <select class="moneyAmountCurrency">
