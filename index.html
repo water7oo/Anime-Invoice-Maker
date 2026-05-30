@@ -23,6 +23,11 @@
         <button class="quickmenuBtns">menu option 1</button>
     </div> -->
 
+    <div class="Settings">
+        <a href="workerTemplate.json" download="workerTemplate.json">
+            <button type="button">DOWNLOAD JSON</button>
+        </a>
+    </div>
 
     <pre id="fileContentDisplay"></pre>
 
@@ -65,13 +70,11 @@
     <center>
         <div class="Settings">
             <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
-                <button id="clearFile" onclick="clearCurrentFile()">CLEAR FILE</button>
+                <!-- <button id="clearFile" onclick="clearCurrentFile()">CLEAR FILE</button> -->
                 <input type="file" name="file" id="fileUpload" class="fileUploading">
-                <button type="submit" id="submitBtn">APPLY</button>
+                <button type="submit" id="submitBtn">LOAD</button>
                 <button id="export" onclick="window.print()">EXPORT PDF</button>
-                <a href="workerTemplate.json" download="workerTemplate.json">
-                    <button type="button">DOWNLOAD JSON</button>
-                </a>
+
             </form>
 
             <button onclick="addRow({ mode: 'below' })" class="invoiceBtns">ADD ROW</button>
@@ -166,7 +169,7 @@
                     </tr>
                     <tr>
                         <td>Bank Name</td>
-                        <td><input type="text" id="workerBankName" style="width: 200px;"></td>
+                        <td><input type="text" id="workerBankName" style="width: 400px;"></td>
                     </tr>
                     <tr>
                         <td>Bank Address</td>
@@ -186,7 +189,7 @@
                     </tr>
                     <tr>
                         <td>Bank Branch Name</td>
-                        <td><input type="text" id="workerBankBranchName" style="width: 200px;"></td>
+                        <td><input type="text" id="workerBankBranchName" style="width: 400px;"></td>
                     </tr>
                     <tr>
                         <td>IBAN code</td>

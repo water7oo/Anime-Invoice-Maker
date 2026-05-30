@@ -13,7 +13,7 @@ table.greyGridTable tbody td {
   font-size: 13px;
 }
 table.greyGridTable td:nth-child(even) {
-  background: rgb(221, 221, 221);
+  background: rgb(242, 242, 242);
 }
 
 table.greyGridTable td:nth-child(odd) {

@@ -10,7 +10,6 @@ function readFile() {
 
         if (fileInput.files.length === 0) {
             if (fileCleared == false)
-                alert('Select a file first!');
                 return;
         }
 
@@ -41,6 +40,7 @@ function readFile() {
                 if (data.workerCompany) document.getElementById("studioName").value = data.workerCompany;
                 if (data.workerPenName) document.getElementById("penName").value = data.workerPenName;
                 if (data.workerPhoneNumber) document.getElementById("workerPhoneNumber").value = data.workerPhoneNumber;
+                clearCurrentFile()
             } catch (error) {
                 console.error("Could not parse JSON file layout:", error);
                 alert("Error reading file. Ensure it is formatted correctly.");
