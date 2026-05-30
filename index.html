@@ -36,14 +36,10 @@
 
         <div class="settings">
             <div id="workerDetails">
-                <p>Name: <input type="text" value="" id="workerName" style="max-width: 300px;"
-                        oninput="this.style.width = (this.value.length + 0.5) +'ch'">様</p>
-                <p>Address: <input type="text" id="workerAddress"
-                        oninput="this.style.width = (this.value.length + 1) + 'ch'"></p>
-                <p>Country: <input type="text" id="workerCountry"
-                        oninput="this.style.width = (this.value.length + 1) + 'ch'"></p>
-                <p>Phone: <input type="text" id="workerPhoneNumber"
-                        oninput="this.style.width = (this.value.length + 1) + 'ch'"></p>
+                <p>Name: <input type="text" value="" id="workerName">様</p>
+                <p>Address: <input type="text" id="workerAddress" style="width: 400px;"></p>
+                <p>Country: <input type="text" id="workerCountry" style="width: 400px;"></p>
+                <p>Phone: <input type="text" id="workerPhoneNumber"></p>
                 <div id="date">
                     <p>Date: <input type="date" id="date"></p>
                 </div>
@@ -96,13 +92,15 @@
                     <tr>
                         <th>
                             <p>Number 項目</p> <button id="clearNumColumn" onclick="cutNumberColumnClear()">CLEAR
-                                COLUMN</button><button id="applyAllType" onclick="applyCutNumbersSequential()">SEQUENCED CUT ORDER</button>
+                                COLUMN</button><button id="applyAllType" onclick="applyCutNumbersSequential()">SEQUENCED
+                                CUT ORDER</button>
                         </th>
                         <th>
                             <p>Type 種類</p> <button id="applyAllType" onclick="applyAllType()">APPLY TYPE</button>
                         </th>
                         <th>
-                            <p>Subtotal 小計</p><button id="clearNumColumn" onclick="amountColumnClear()">CLEAR COLUMN</button> <button id="applyAllAmount" onclick="applyAllMoneyAmount()">Apply
+                            <p>Subtotal 小計</p><button id="clearNumColumn" onclick="amountColumnClear()">CLEAR
+                                COLUMN</button> <button id="applyAllAmount" onclick="applyAllMoneyAmount()">Apply
                                 AMOUNT</button>
                         </th>
                     </tr>
@@ -168,27 +166,27 @@
                     </tr>
                     <tr>
                         <td>Bank Name</td>
-                        <td><input type="text" id="workerBankName"></td>
+                        <td><input type="text" id="workerBankName" style="width: 200px;"></td>
                     </tr>
                     <tr>
                         <td>Bank Address</td>
-                        <td><input type="text" id="workerBankAddress"></td>
+                        <td><input type="text" id="workerBankAddress" style="width: 300px;"></td>
                     </tr>
                     <tr>
                         <td>Account Number</td>
-                        <td><input type="text" id="workerAccountNumber"></td>
+                        <td><input type="text" id="workerAccountNumber" style="width: 200px;"></td>
                     </tr>
                     <tr>
                         <td>Wire Number</td>
-                        <td><input type="text" id="workerWireNumer"></td>
+                        <td><input type="text" id="workerWireNumer" style="width: 200px;"></td>
                     </tr>
                     <tr>
                         <td>SWIFT code</td>
-                        <td><input type="text" id="workerSWIFTcode"></td>
+                        <td><input type="text" id="workerSWIFTcode" style="width: 200px;"></td>
                     </tr>
                     <tr>
                         <td>Bank Branch Name</td>
-                        <td><input type="text" id="workerBankBranchName"></td>
+                        <td><input type="text" id="workerBankBranchName" style="width: 200px;"></td>
                     </tr>
                     <tr>
                         <td>IBAN code</td>
