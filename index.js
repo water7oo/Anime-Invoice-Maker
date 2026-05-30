@@ -1,6 +1,7 @@
 var totalCutAmount = 1;
 var cutCounter = 1;
 var cutNumColumn = [];
+var fileCleared = false
 function readFile() {
     document.getElementById('uploadForm').addEventListener('submit', function(event) {
         event.preventDefault(); 
@@ -8,8 +9,9 @@ function readFile() {
         const fileInput = document.getElementById('fileUpload');
 
         if (fileInput.files.length === 0) {
-            alert('Select a file first!');
-            return;
+            if (fileCleared == false)
+                alert('Select a file first!');
+                return;
         }
 
         const file = fileInput.files[0]; 
@@ -37,6 +39,8 @@ function readFile() {
                 if (data.workerBankBranchName) document.getElementById("workerBankBranchName").value = data.workerBankBranchName;
                 if (data.workerIBANcode) document.getElementById("workerIBANcode").value = data.workerIBANcode;
                 if (data.workerCompany) document.getElementById("studioName").value = data.workerCompany;
+                if (data.workerPenName) document.getElementById("penName").value = data.workerPenName;
+                if (data.workerPhoneNumber) document.getElementById("workerPhoneNumber").value = data.workerPhoneNumber;
             } catch (error) {
                 console.error("Could not parse JSON file layout:", error);
                 alert("Error reading file. Ensure it is formatted correctly.");
@@ -106,12 +110,13 @@ function buildRow(row, number, mode) {
             : "addRow({ mode: 'between', clickedButton: this })";
 
     cutNum1.innerHTML = `
-        <p>c<input type="text" value="${number}"class="cutNumberInput"></p>
+        <p>c<input type="text" class="cutNumberInput" id="cutNumberInputID" style="max-width: 40px;
+    height: 20px;"></p>
         <div class="row-trigger" onclick="${handler}">+</div>
     `;
 
     cutType2.innerHTML = `
-        <select class="typeSelection">
+        <select id="jobType" name="job" class="typeSelection">
             <option value="LO">LO</option>
             <option value="NIGEN">NIGEN</option>
             <option value="GENGA">GENGA</option>
@@ -121,12 +126,13 @@ function buildRow(row, number, mode) {
     `;
 
     cutAmount3.innerHTML = `
-            <input type="text" <form action="" class="moneyAmountFields">
+            <input type="text" class="moneyAmountFields" id="moneyAmountFieldsID" style="    max-width: 40px;height: 20px;">
             <select id="moneyCurrency" name="currency" class="moneyAmountCurrency">
-            <option value="YEN">¥</option>
-            <option value="USD">$</option>
-            <option value="POUND">£</option>
-            <option value="WON">₩</option>
+                <option value="¥">¥</option>
+                <option value="$">$</option>
+                <option value="£">£</option>
+                <option value="₩">₩</option>
+                <option value="R">R</option>
             </select>
     `;
 }
@@ -216,5 +222,71 @@ function applyCutNumbersSequential() {
 
 function sequenceNumbers(){
     console.debug("Numbers sequenced")
+}
+function clearCurrentFile(){
+    fileCleared = true
+    const file = document.getElementById("fileUpload");
+    file.value = "";
+    console.log("file cleared");
+
+}
+
+function exportFile() {
+    const html = document.documentElement.outerHTML;
+
+    fetch("https://e.customjs.io/html2pdf", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "YOUR_API_KEY",
+            "customjs-origin": "inline/pdf-generator"
+        },
+        body: JSON.stringify({
+            input: {
+                html,
+                config: {
+                    pdfWidthMm: 210,
+                    pdfHeightMm: 297
+                }
+            }
+        })
+    })
+    .then(res => res.blob())
+    .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "invoice.pdf";
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+}
+
+function clearInvoice(){
+    const allCutNumberElements = document.querySelectorAll('.cutNumberInput');
+    const allCutAmounts = document.querySelectorAll('.moneyAmountFields');
+    allCutNumberElements.forEach(element => {
+        element.value = ""
+    });
+ 
+    allCutAmounts.forEach(element => {
+        element.value = ""
+    });
+
+
+    console.log(allCutNumberElements)
+}
+
+function toggleMenu(){
+    var isToggled = false
+
+    if (isToggled == false){
+        console.log("no");
+        isToggled = true;
+    }else{
+        console.log("yes");
+        isToggled = false;
+    }
+
 }
 

@@ -1,115 +1,288 @@
-body{
-    background-color: none;
+@media print {
+     button, header, footer{
+         display: none;
+    }
+     input{
+         all: unset;
+    }
+     select{
+         all: unset;
+    }
+     #fileUpload{
+         display: none;
+    }
+     #date{
+         all:unset;
+    }
+
+    
+}
+ body{
+     background-color: white;
+
+}
+
+p{
+    
+}
+h1{
+    border: none black;
+    color: #7f7f7f;
+    text-align: end;
+}
+
+h2{
+    color: #7f7f7f;
+}
+
+.Settings > button{
+    padding: 10px;
+    font-size: 15pt;
+    background-color: white;
+    
+}
+
+
+#fileUpload{
+    padding-bottom: 4px;
+}
+
+/* input{
+    max-width: 30em;
+    min-width: 10em;
+} */
+
+
+
+.typeSelection{
+    max-width:100px;
+    height: 40px;
+}
+
+#masterWorkerInfo div{
+    max-height: 15em;
+}
+.Settings Button, .fileUploading::file-selector-button, #applyAllType, #clearNumColumn, #applyAllAmount {
+    appearance: none;
+    background-color: transparent;
+    border: 0.1em solid #1A1A1A;
+    border-radius: 0.3em;
+    box-sizing: border-box;
+    color: #808080;
+    cursor: pointer;
+
+
+    font-size: 17px;
+    padding: 1px;
+
+    margin: 0;
+    min-height: 0.01em;
+    min-width: 10em;
+    outline: none;
+
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    will-change: transform;
+}
+
+
+.Settings Button:hover {
+    color: #f1f1f1;
+    background-color: #9b9b9b;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(1px);
+}
+.Settings Button:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.Settings .fileUploading::file-selector-button:hover {
+    color: #000000;
+    background-color: #cacaca;
+    transform: translateY(1px);
+}
+.Settings .fileUploading::file-selector-button:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+#applyAllType:hover{
+    color: #f1f1f1;
+    background-color: #6d6d6d;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(1px);
+}
+
+#applyAllType:active{
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+#applyAllAmount:hover{
+    color: #f1f1f1;
+    background-color: #a8a8a8;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(1px);
+}
+
+#applyAllAmount:active{
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+#clearNumColumn:hover{
+    color: #fff;
+    background-color: #ff3f3f;
+    box-shadow: rgba(255, 255, 255, 0.25) 0 8px 15px;
+    transform: translateY(1px);
+    border: solid red;
+}
+
+#clearNumColumn:active{
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+#removeRowBtn:hover{
+    color: #fff;
+    background-color: #ff3f3f;
+    box-shadow: rgba(255, 255, 255, 0.25) 0 8px 15px;
+    transform: translateY(1px);
+    border: solid red;
+}
+
+#removeRowBtn:active{
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+#clearAll:hover{
+    color: #fff;
+    background-color: #ff3f3f;
+    box-shadow: rgba(255, 255, 255, 0.25) 0 8px 15px;
+    transform: translateY(1px);
+    border: solid red;
+}
+
+#clearAll:active{
+    box-shadow: none;
+    transform: translateY(0);
 }
 
 .master{
-    border: none black;
-    padding: 50px;
+     border: none black;
+     padding: 10px;
 }
-
 .cutNumberElementContainer{
-    border: none black;
+     border: none red;
+
 }
- 
+
 .btn{
-    border: none black;
-    display: flex;
-    width: 100%;
+     border: none black;
+     display: flex;
+     width: 100%;
 }
-
 #date{
-    border: none red;
+     border: none red;
 }
-
-.settings{
-    border: none blue;
-    display: flex;
+ .settings{
+     border: none blue;
+     display: flex;
 }
----------------------
-table.greyGridTable {
-  font-family: Arial, Helvetica, sans-serif;
-  border: 2px solid #FFFFFF;
-  width: 100%;
-  text-align: center;
-  border-collapse: collapse;
-}
-table.greyGridTable td, table.greyGridTable th {
-  border: 1px solid #FFFFFF;
-
-  padding: 3px 4px;
-}
-table.greyGridTable tbody td {
-  font-size: 14px;
-}
-table.greyGridTable td:nth-child(even) {
-  background: #EBEBEB;
-
-}
-table.greyGridTable thead {
-  background: #FFFFFF;
-  border-bottom: 4px solid #333333;
-}
-table.greyGridTable thead th {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333333;
-  text-align: center;
-  border-left: 2px solid #333333;
-}
-
-table.greyGridTable thead th:first-child {
-  border-left: none;
-}
-
-table.greyGridTable tfoot {
-  font-size: 15px;
-  font-weight: bold;
-  color: #333333;
-
-}
-table.greyGridTable tfoot td {
-  font-size: 15px;
+ .quickMenu{
+     border: solid black;
+     background-color: rgb(255, 0, 0);
+     display: flex;
+     justify-content: center;
+     position: absolute;
 }
 
 
 
-.invoice-row td:first-child {
-    position: relative;
+ --------------------- --------------------- 
+
+
+ -------------------------------------------
+ 
+ table.greyGridTable {
+
+     border: 2px solid #FFFFFF;
+     width: 100%;
+     text-align: center;
+     border-collapse: collapse;
 }
-
-.row-trigger {
-    opacity: 0;
-    position: absolute;
-    bottom: -10px;    
-    left: 10px;       
-    z-index: 10;     
-    
-
-    background-color: #333333;
-    color: white;
-    font-weight: bold;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 50%; 
-    text-align: center;
-    line-height: 20px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    transition: opacity 0.15s ease-in-out, transform 0.1s;
+ table.greyGridTable td, table.greyGridTable th {
+     border: 1px solid #FFFFFF;
+     padding: 3px 4px;
 }
-
+ table.greyGridTable tbody td {
+     font-size: 14px;
+}
+ table.greyGridTable td:nth-child(even) {
+     background: #EBEBEB;
+}
+ table.greyGridTable thead {
+     background: #FFFFFF;
+     border-bottom: 4px solid #333333;
+}
+ table.greyGridTable thead th {
+     font-size: 16px;
+     font-weight: bold;
+     color: #c1c1c1;
+     text-align: center;
+     border-left: 2px solid #333333;
+}
+ table.greyGridTable thead th:first-child {
+     border-left: none;
+}
+ table.greyGridTable tfoot {
+     font-size: 15px;
+     font-weight: bold;
+     color: #9e9e9e;
+}
+ table.greyGridTable tfoot td {
+     font-size: 15px;
+}
+ .invoice-row td:first-child {
+     position: relative;
+}
+ .row-trigger {
+     opacity: 0;
+     position: absolute;
+     bottom: -10px;
+     left: 10px;
+     z-index: 10;
+     background-color: #333333;
+     color: white;
+     font-weight: bold;
+     padding: 10px;
+     font-size: 14px;
+     border-radius: 50%;
+     text-align: center;
+     line-height: 20px;
+     width: 20px;
+     height: 20px;
+     cursor: pointer;
+     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+     transition: opacity 0.15s ease-in-out, transform 0.1s;
+}
 /* Hover over the row to show the button underneath it */
-.invoice-row:hover .row-trigger {
-    opacity: 1;
+ .invoice-row:hover .row-trigger {
+     opacity: 1;
 }
-
 /* Subtle click response */
-.row-trigger:hover {
-    transform: scale(1.1);
-    background-color: #555555;
+ .row-trigger:hover {
+     transform: scale(1.1);
+     background-color: #555555;
 }
-.row-trigger:active {
-    transform: scale(0.95);
+ .row-trigger:active {
+     transform: scale(0.95);
 }

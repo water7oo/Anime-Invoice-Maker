@@ -10,155 +10,193 @@
 </head>
 
 <body>
-    <h1>ANIME WORKER INVOICE 請求書</h1>
+    <h1 id="titleInvoice">INVOICE 請求書</h1>
 
+
+    <!-- <div><button id="quickMenuBtn" onclick="toggleMenu()">Menu</button></div>
+
+    <div class="quickMenu">
+        <button class="quickmenuBtns">menu option 1</button>
+        <button class="quickmenuBtns">menu option 1</button>
+        <button class="quickmenuBtns">menu option 1</button>
+        <button class="quickmenuBtns">menu option 1</button>
+        <button class="quickmenuBtns">menu option 1</button>
+    </div> -->
 
 
     <pre id="fileContentDisplay"></pre>
 
-    <div class="settings">
-        <div id="studioContainer">
-            <p>STUDIO<input type="text" id="studioName"></p>
-        </div>
-        <div id="signatureContainer">
-            <p>Signature<input type="text" id="workerSignature"></p>
-        </div>
-    </div>
+    <div id="masterWorkerInfo">
+        <div class="settings">
 
-    <div class="settings">
-        <div id="workerDetails">
-            <p>Name<input type="text" value="" id="workerName"> 様</p>
-            <p>Address<input type="text" id="workerAddress"></p>
-            <p>Country<input type="text" id="workerCountry"></p>
-            <div id="date">
-                <input type="date">
+            <div id="signatureContainer">
+                <p>Signature: <input type="text" id="workerSignature"></p>
             </div>
         </div>
+
+        <div class="settings">
+            <div id="workerDetails">
+                <p>Name: <input type="text" value="" id="workerName" style="max-width: 300px;"
+                        oninput="this.style.width = (this.value.length + 1) + 'ch'"> 様</p>
+                <p>Address: <input type="text" id="workerAddress"
+                        oninput="this.style.width = (this.value.length + 1) + 'ch'"></p>
+                <p>Country: <input type="text" id="workerCountry"
+                        oninput="this.style.width = (this.value.length + 1) + 'ch'"></p>
+                <p>Phone: <input type="text" id="workerPhoneNumber"
+                        oninput="this.style.width = (this.value.length + 1) + 'ch'"></p>
+                <div id="date">
+                    <p>Date: <input type="date" id="date"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- <center>
+        <h2>INVOICE 請求書</h2>
+    </center> -->
+
+
+        <div id="studioContainer">
+            <p>To: <input type="text" id="studioName">For:<input type="text" id="penName"></p>
+
+        </div>
+
+        <div id="date">
+            <p style="text-align: end;">Delivery date: <input type="date" id="date"></p>
+        </div>
+
     </div>
 
     <center>
-        <h2>INVOICE 請求書</h2>
+        <div class="Settings">
+            <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                <button id="clearFile" onclick="clearCurrentFile()">CLEAR FILE</button>
+                <input type="file" name="file" id="fileUpload" class="fileUploading">
+                <button type="submit" id="submitBtn">APPLY</button>
+                <button id="export" onclick="window.print()">EXPORT</button>
+            </form>
+
+            <button onclick="addRow({ mode: 'below' })" class="invoiceBtns">ADD ROW</button>
+            <button id="removeRowBtn" onclick="removeRow()" class="invoiceBtns">DELETE ROW</button>
+            <button id="clearAll" onclick="clearInvoice()" class="invoiceBtns">CLEAR INVOICE</button>
+        </div>
+
+
+        <div class="btn" id="addRow">
+
+        </div>
     </center>
 
-    <div class="jsonImport">
-        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" id="fileUpload">
-            <button type="submit" id="submitBtn">APPLY</button>
-        </form>
-    </div>
+    <center>
+        <div class="master">
+            <table class="greyGridTable">
+                <thead>
+                    <tr>
+                        <th>
+                            <p>Number 項目</p> <button id="clearNumColumn" onclick="cutNumberColumnClear()">Clear
+                                Column</button><button id="applyAllType" onclick="applyCutNumbersSequential()">Sequence
+                                Numbers</button>
+                        </th>
+                        <th>
+                            <p>Type 種類</p> <button id="applyAllType" onclick="applyAllType()">Apply All</button>
+                        </th>
+                        <th>
+                            <p>Subtotal 小計</p> <button id="applyAllAmount" onclick="applyAllMoneyAmount()">Apply
+                                All</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <p>Total cuts:<input type="text" id="totalCutNumbers" disabled></p>
+                        </td>
+                        <td>
+                            <p>Total Amount: <input type="text" id="totalAmount" disabled></p>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody id="invoiceBody">
+                    <tr class="invoice-row">
+                        <td id="cutNumber">
+                            <p>c<input type="text" class="cutNumberInput" id="cutNumberInputID" style="max-width: 40px;
+    height: 20px;"></p>
+                            <!-- <div class="row-trigger" onclick="addRow({ mode: 'between', clickedButton: this })">+</div> -->
+                        </td>
+                        <td id="cutType">
+                            <form action="">
+                                <select id="jobType" name="job" class="typeSelection">
+                                    <option value="LO">LO</option>
+                                    <option value="NIGEN">NIGEN</option>
+                                    <option value="GENGA">GENGA</option>
+                                    <option value="SAKKAN">SAKKAN</option>
+                                    <option value="DOUGA">DOUGA</option>
+                                </select>
+                            </form>
+                        </td>
+                        <td id="cutAmount">
+                            <input type="text" class="moneyAmountFields" id="moneyAmountFieldsID" style="    max-width: 40px;
+    height: 20px;">
 
-
-    <div class="btn" id="addRow">
-        <button onclick="addRow({ mode: 'below' })">ADD ROW</button>
-        <button id="removeRowBtn" onclick="removeRow()">REMOVE ROW</button>
-        <button id="clearAll" onclick="clearAll()">CLEAR ALL</button>
-        <button id="export" onclick="exportFile()">EXPORT</button>
-    </div>
-
-    <div class="master">
-        <table class="greyGridTable">
-            <thead>
-                <tr>
-                    <th>
-                        <p>Number</p> <button id="clearNumColumn" onclick="cutNumberColumnClear()">Clear
-                            Column</button><button id="applyAllType" onclick="applyCutNumbersSequential()">Apply
-                            All</button>
-                    </th>
-                    <th>
-                        <p>Type</p> <button id="applyAllType" onclick="applyAllType()">Apply All</button>
-                    </th>
-                    <th>
-                        <p>Amount</p> <button id="applyAllAmount" onclick="applyAllMoneyAmount()">Apply All</button>
-                    </th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <td></td>
-                    <td>
-                        <p>Total cuts:<input type="text" id="totalCutNumbers"></p>
-                    </td>
-                    <td>
-                        <p>Total Amount: <input type="text" id="totalAmount"></p>
-                    </td>
-                </tr>
-            </tfoot>
-            <tbody id="invoiceBody">
-                <tr class="invoice-row">
-                    <td id="cutNumber">
-                        <p>c<input type="text" class="cutNumberInput"></p>
-                        <div class="row-trigger" onclick="addRow({ mode: 'between', clickedButton: this })">+</div>
-                    </td>
-                    <td id="cutType">
-                        <form action="">
-                            <select id="jobType" name="job" class="typeSelection">
-                                <option value="LO">LO</option>
-                                <option value="NIGEN">NIGEN</option>
-                                <option value="GENGA">GENGA</option>
-                                <option value="SAKKAN">SAKKAN</option>
-                                <option value="DOUGA">DOUGA</option>
+                            <select class="moneyAmountCurrency">
+                                <option value="¥">¥</option>
+                                <option value="$">$</option>
+                                <option value="£">£</option>
+                                <option value="₩">₩</option>
+                                <option value="R">R</option>
                             </select>
-                        </form>
-                    </td>
-                    <td id="cutAmount">
-                        <input type="text" class="moneyAmountFields">
-
-                        <select class="moneyAmountCurrency">
-                            <option value="YEN">¥</option>
-                            <option value="USD">$</option>
-                            <option value="POUND">£</option>
-                            <option value="WON">₩</option>
-                        </select>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </center>
     <center>
         <h2>BANK INFORMATION 銀行情報</h2>
     </center>
 
-    <div class="master">
-        <table class="greyGridTable">
-            <tbody>
-                <tr>
-                    <td>Account Holders Name</td>
-                    <td><input type="text" id="workerAccountHolderName"></td>
-                </tr>
-                <tr>
-                    <td>Bank Name</td>
-                    <td><input type="text" id="workerBankName"></td>
-                </tr>
-                <tr>
-                    <td>Bank Address</td>
-                    <td><input type="text" id="workerBankAddress"></td>
-                </tr>
-                <tr>
-                    <td>Account Number</td>
-                    <td><input type="text" id="workerAccountNumber"></td>
-                </tr>
-                <tr>
-                    <td>Wire Number</td>
-                    <td><input type="text" id="workerWireNumer"></td>
-                </tr>
-                <tr>
-                    <td>SWIFT code</td>
-                    <td><input type="text" id="workerSWIFTcode"></td>
-                </tr>
-                <tr>
-                    <td>Bank Branch Name</td>
-                    <td><input type="text" id="workerBankBranchName"></td>
-                </tr>
-                <tr>
-                    <td>IBAN code</td>
-                    <td><input type="text" id="workerIBANcode"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+    <center>
+        <div class="master">
+            <table class="greyGridTable">
+                <tbody>
+                    <tr>
+                        <td>Account Holders Name</td>
+                        <td><input type="text" id="workerAccountHolderName"></td>
+                    </tr>
+                    <tr>
+                        <td>Bank Name</td>
+                        <td><input type="text" id="workerBankName"></td>
+                    </tr>
+                    <tr>
+                        <td>Bank Address</td>
+                        <td><input type="text" id="workerBankAddress"></td>
+                    </tr>
+                    <tr>
+                        <td>Account Number</td>
+                        <td><input type="text" id="workerAccountNumber"></td>
+                    </tr>
+                    <tr>
+                        <td>Wire Number</td>
+                        <td><input type="text" id="workerWireNumer"></td>
+                    </tr>
+                    <tr>
+                        <td>SWIFT code</td>
+                        <td><input type="text" id="workerSWIFTcode"></td>
+                    </tr>
+                    <tr>
+                        <td>Bank Branch Name</td>
+                        <td><input type="text" id="workerBankBranchName"></td>
+                    </tr>
+                    <tr>
+                        <td>IBAN code</td>
+                        <td><input type="text" id="workerIBANcode"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </center>
     <script src="index.js" defer></script>
+
 </body>
 
 </html>

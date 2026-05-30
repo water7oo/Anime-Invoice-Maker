@@ -1,41 +1,46 @@
 table.greyGridTable {
   border: 2px solid #000000;
-  width: 100%;
+  width: 80%;
+  max-height: 100em;
   text-align: center;
   border-collapse: collapse;
 }
 table.greyGridTable td, table.greyGridTable th {
-  border: 1px solid #FFFFFF;
+  border: 1px none #FFFFFF;
   padding: 3px 4px;
 }
 table.greyGridTable tbody td {
   font-size: 13px;
 }
 table.greyGridTable td:nth-child(even) {
-  background: #EBEBEB;
+  background: rgb(221, 221, 221);
 }
 table.greyGridTable thead {
-  background: #FFFFFF;
+  background: #ffffff;
   border-bottom: 4px solid #333333;
 }
 table.greyGridTable thead th {
   font-size: 15px;
   font-weight: bold;
-  color: #333333;
+  color: #767676;
   text-align: center;
-  border-left: 2px solid #333333;
+  border-left: 2px none #333333;
 }
 table.greyGridTable thead th:first-child {
   border-left: none;
+  
 }
 
 table.greyGridTable tfoot {
   font-size: 11px;
   font-weight: bold;
-  color: #333333;
+  color: #545454;
   background: #FFFFFF;
-  border-top: 2px solid #333333;
+  border-top: 2px none #333333;
 }
 table.greyGridTable tfoot td {
-  font-size: 11px;
+  font-size: 13px;
+  
 }
+
+
