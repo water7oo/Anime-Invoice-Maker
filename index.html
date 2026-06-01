@@ -13,15 +13,6 @@
     <h1 id="titleInvoice">INVOICE 請求書</h1>
 
 
-    <!-- <div><button id="quickMenuBtn" onclick="toggleMenu()">Menu</button></div>
-
-    <div class="quickMenu">
-        <button class="quickmenuBtns">menu option 1</button>
-        <button class="quickmenuBtns">menu option 1</button>
-        <button class="quickmenuBtns">menu option 1</button>
-        <button class="quickmenuBtns">menu option 1</button>
-        <button class="quickmenuBtns">menu option 1</button>
-    </div> -->
 
     <div class="Settings">
         <a href="workerTemplate.json" download="workerTemplate.json">
@@ -42,8 +33,8 @@
         <div class="settings">
             <div id="workerDetails">
                 <p>Name: <input type="text" value="" id="workerName">様</p>
-                <p>Address: <input type="text" id="workerAddress" style="width: 400px;"></p>
-                <p>Country: <input type="text" id="workerCountry" style="width: 400px;"></p>
+                <p>Address: <input type="text" id="workerAddress"></p>
+                <p>Country: <input type="text" id="workerCountry"></p>
                 <p>Phone: <input type="text" id="workerPhoneNumber"></p>
                 <div id="date">
                     <p>Date: <input type="date" id="date"></p>
@@ -79,7 +70,7 @@
 
             <button onclick="addRow({ mode: 'below' })" class="invoiceBtns">ADD ROW</button>
             <button id="removeRowBtn" onclick="removeRow()" class="invoiceBtns">DELETE ROW</button>
-            <button id="clearAll" onclick="clearInvoice()" class="invoiceBtns">CLEAR INVOICE</button>
+            <button id="clearAll" onclick="clearInvoice()" class="invoiceBtns">CLEAR TABLE</button>
         </div>
 
 
@@ -103,7 +94,7 @@
                         </th>
                         <th>
                             <p>Subtotal 小計</p><button id="clearNumColumn" onclick="amountColumnClear()">CLEAR
-                                COLUMN</button> <button id="applyAllAmount" onclick="applyAllMoneyAmount()">Apply
+                                COLUMN</button> <button id="applyAllAmount" onclick="applyAllMoneyAmount()">APPLY
                                 AMOUNT</button>
                         </th>
                     </tr>
@@ -122,8 +113,7 @@
                 <tbody id="invoiceBody">
                     <tr class="invoice-row">
                         <td id="cutNumber">
-                            <p>c<input type="text" class="cutNumberInput" id="cutNumberInputID" style="max-width: 40px;
-    height: 20px;"></p>
+                            <p>c<input type="text" class="cutNumberInput" id="cutNumberInputID"></p>
                             <!-- <div class="row-trigger" onclick="addRow({ mode: 'between', clickedButton: this })">+</div> -->
                         </td>
                         <td id="cutType">
@@ -139,8 +129,7 @@
                         </td>
                         <td id="cutAmount">
                             <input oninput="updateTotalAmount()" type="text" class="moneyAmountFields"
-                                id="moneyAmountFieldsID" style="    max-width: 40px;
-    height: 20px;">
+                                id="moneyAmountFieldsID">
 
                             <select class="moneyAmountCurrency">
                                 <option value="¥">¥</option>
@@ -169,27 +158,27 @@
                     </tr>
                     <tr>
                         <td>Bank Name</td>
-                        <td><input type="text" id="workerBankName" style="width: 400px;"></td>
+                        <td><input type="text" id="workerBankName"></td>
                     </tr>
                     <tr>
                         <td>Bank Address</td>
-                        <td><input type="text" id="workerBankAddress" style="width: 300px;"></td>
+                        <td><input type="text" id="workerBankAddress"></td>
                     </tr>
                     <tr>
                         <td>Account Number</td>
-                        <td><input type="text" id="workerAccountNumber" style="width: 200px;"></td>
+                        <td><input type="text" id="workerAccountNumber"></td>
                     </tr>
                     <tr>
                         <td>Wire Number</td>
-                        <td><input type="text" id="workerWireNumer" style="width: 200px;"></td>
+                        <td><input type="text" id="workerWireNumer"></td>
                     </tr>
                     <tr>
                         <td>SWIFT code</td>
-                        <td><input type="text" id="workerSWIFTcode" style="width: 200px;"></td>
+                        <td><input type="text" id="workerSWIFTcode"></td>
                     </tr>
                     <tr>
                         <td>Bank Branch Name</td>
-                        <td><input type="text" id="workerBankBranchName" style="width: 400px;"></td>
+                        <td><input type="text" id="workerBankBranchName"></td>
                     </tr>
                     <tr>
                         <td>IBAN code</td>

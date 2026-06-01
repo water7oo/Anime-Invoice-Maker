@@ -23,24 +23,26 @@ function readFile() {
                 console.log("JSON parsed successfully:", data);
 
     
-                if (data.workerName) document.getElementById("workerName").value = data.workerName;
-                if (data.workerAddress) document.getElementById("workerAddress").value = data.workerAddress;
-                if (data.workerCountry) document.getElementById("workerCountry").value = data.workerCountry;
-                if (data.workerSignature) document.getElementById("workerSignature").value = data.workerSignature;
+                if (data.workerName) document.getElementById("workerName").value = data.workerName; resizeInput.call(workerName);
+                if (data.workerAddress) document.getElementById("workerAddress").value = data.workerAddress; resizeInput.call(workerAddress);
+                if (data.workerCountry) document.getElementById("workerCountry").value = data.workerCountry; resizeInput.call(workerCountry);
+                if (data.workerSignature) document.getElementById("workerSignature").value = data.workerSignature; resizeInput.call(workerSignature);
                 
 
-                if (data.workerAccountHolderName) document.getElementById("workerAccountHolderName").value = data.workerAccountHolderName;
-                if (data.workerBankName) document.getElementById("workerBankName").value = data.workerBankName;
-                if (data.workerBankAddress) document.getElementById("workerBankAddress").value = data.workerBankAddress;
-                if (data.workerAccountNumber) document.getElementById("workerAccountNumber").value = data.workerAccountNumber;
-                if (data.workerWireNumer) document.getElementById("workerWireNumer").value = data.workerWireNumer;
-                if (data.workerSWIFTcode) document.getElementById("workerSWIFTcode").value = data.workerSWIFTcode;
-                if (data.workerBankBranchName) document.getElementById("workerBankBranchName").value = data.workerBankBranchName;
-                if (data.workerIBANcode) document.getElementById("workerIBANcode").value = data.workerIBANcode;
-                if (data.workerCompany) document.getElementById("studioName").value = data.workerCompany;
-                if (data.workerPenName) document.getElementById("penName").value = data.workerPenName;
-                if (data.workerPhoneNumber) document.getElementById("workerPhoneNumber").value = data.workerPhoneNumber;
+                if (data.workerAccountHolderName) document.getElementById("workerAccountHolderName").value = data.workerAccountHolderName; resizeInput.call(workerAccountHolderName);
+                if (data.workerBankName) document.getElementById("workerBankName").value = data.workerBankName; resizeInput.call(workerBankName);
+                if (data.workerBankAddress) document.getElementById("workerBankAddress").value = data.workerBankAddress; resizeInput.call(workerBankAddress);
+                if (data.workerAccountNumber) document.getElementById("workerAccountNumber").value = data.workerAccountNumber; resizeInput.call(workerAccountNumber);
+                if (data.workerWireNumer) document.getElementById("workerWireNumer").value = data.workerWireNumer; resizeInput.call(workerWireNumer);
+                if (data.workerSWIFTcode) document.getElementById("workerSWIFTcode").value = data.workerSWIFTcode; resizeInput.call(workerSWIFTcode);
+                if (data.workerBankBranchName) document.getElementById("workerBankBranchName").value = data.workerBankBranchName; resizeInput.call(workerBankBranchName);
+                if (data.workerIBANcode) document.getElementById("workerIBANcode").value = data.workerIBANcode; resizeInput.call(workerIBANcode);
+                if (data.workerCompany) document.getElementById("studioName").value = data.workerCompany; resizeInput.call(studioName);
+                if (data.workerPenName) document.getElementById("penName").value = data.workerPenName; resizeInput.call(penName);
+                if (data.workerPhoneNumber) document.getElementById("workerPhoneNumber").value = data.workerPhoneNumber; resizeInput.call(workerPhoneNumber);
+                 
                 clearCurrentFile()
+                
             } catch (error) {
                 console.error("Could not parse JSON file layout:", error);
                 alert("Error reading file. Ensure it is formatted correctly.");
@@ -56,6 +58,7 @@ function readFile() {
 }
 
 readFile();
+
 
 
 function addRow({ mode = "below", clickedButton = null } = {}) {
@@ -94,6 +97,11 @@ function addRow({ mode = "below", clickedButton = null } = {}) {
 
     totalCutAmount += 1;
     cutAmountUpdate();
+
+        newRow.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', resizeInput);
+        resizeInput.call(input);
+    });
 }
 
 
@@ -204,20 +212,23 @@ function applyAllMoneyAmount() {
 
     const firstAmount = amountFields[0].value;
     const firstCurrency = currencyFields[0].value;
-    var amount = 0
-    var applyFirstCurrency;
+
+    let amount = 0;
 
     const totalAmountInput = document.getElementById("totalAmount");
+
     amountFields.forEach(input => {
         input.value = firstAmount;
-        amount += parseInt(input.value);
-        totalAmountInput.value = String(amount) + " " + firstCurrency
+        amount += parseInt(input.value) || 0;
+
+        resizeInput.call(input); // resize this field
     });
+
+    totalAmountInput.value = amount + " " + firstCurrency;
+    resizeInput.call(totalAmountInput); // resize total field too
 
     currencyFields.forEach(select => {
         select.value = firstCurrency;
-        applyFirstCurrency = firstCurrency.value
-        console.log(firstCurrency)
     });
 }
 
@@ -230,6 +241,7 @@ function applyCutNumbersSequential() {
 
     for (let i = 1; i < allCutNumberElements.length; i++) {
         allCutNumberElements[i].value = base + i;
+        resizeInput.call(allCutNumberElements[i]);
     }
 }
 
@@ -319,4 +331,30 @@ function updateTotalAmount(){
     });
 
     // totalAmountInput.value = String(amount) + " " + firstCurrency
+}
+
+
+
+var input = document.querySelectorAll('input:not(#fileUpload, #date, #totalCutNumbers, #totalAmount)'); 
+
+input.forEach(input =>{
+    input.addEventListener('input', resizeInput);
+    resizeInput.call(input); 
+})
+
+
+
+function resizeInput() {
+    const workerName = document.getElementById("workerName");
+
+    workerName.style.width = (workerName.value.length - .5) + "ch";
+    this.style.width = (this.value.length + 1) + "ch";
+
+}
+
+
+function resizeAllInputs() {
+    document.querySelectorAll('input:not(#fileUpload)').forEach(input => {
+        resizeInput.call(input);
+    });
 }
