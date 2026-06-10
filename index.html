@@ -69,8 +69,16 @@
             </form>
 
             <button onclick="addRow({ mode: 'below' })" class="invoiceBtns">ADD ROW</button>
+
             <button id="removeRowBtn" onclick="removeRow()" class="invoiceBtns">DELETE ROW</button>
             <button id="clearAll" onclick="clearInvoice()" class="invoiceBtns">CLEAR TABLE</button>
+
+
+            <input type="number" id="rowBulkAddInput" placeholder="Enter Cut #...">
+
+            <button id="bulkAddButton"
+                onclick="addRow({ mode: 'below' , amount: document.getElementById('rowBulkAddInput').value })">Bulk
+                Add</button>
         </div>
 
 

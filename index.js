@@ -2,6 +2,7 @@ var totalCutAmount = 1;
 var cutCounter = 1;
 var cutNumColumn = [];
 var fileCleared = false
+
 function readFile() {
     document.getElementById('uploadForm').addEventListener('submit', function(event) {
         event.preventDefault(); 
@@ -61,49 +62,63 @@ readFile();
 
 
 
-function addRow({ mode = "below", clickedButton = null } = {}) {
+// 1. Added an 'amount' parameter with a default value of 1
+function addRow({ mode = "below", clickedButton = null, amount = 1 } = {}) {
     const table = document.getElementById("invoiceBody").closest("table");
     const tbody = document.getElementById("invoiceBody");
 
-    let newRow;
-    let nextNumber;
+    // We keep track of the row reference for the input listeners at the end
+    let currentNewRows = []; 
 
+    // 2. Wrap the row generation logic in a loop
+    for (let i = 0; i < amount; i++) {
+        let newRow;
+        let nextNumber;
 
-    if (mode === "below") {
-        cutCounter += 1;
-        nextNumber = cutCounter;
+        if (mode === "below") {
+            cutCounter += 1;
+            nextNumber = cutCounter;
 
-        newRow = tbody.insertRow();
+            newRow = tbody.insertRow();
 
+            const input = document.getElementById("cutNumberInput");
+            if (input) input.value = cutCounter;
+        }
 
-        const input = document.getElementById("cutNumberInput");
-        if (input) input.value = cutCounter;
+        if (mode === "between" && clickedButton) {
+            // Note: If adding multiple "between", they will stack downwards in order
+            const currentRow = clickedButton.closest("tr");
+            const input = currentRow.querySelector("td input");
+
+            let base = parseInt(input?.value) || 0;
+
+            // Adjusts the numbering based on how many rows we've already added in this loop
+            nextNumber = base + 1 + i; 
+
+            const index = currentRow.rowIndex;
+            // Adds + i so subsequent rows are inserted after the previously newly created row
+            newRow = table.insertRow(index + 1 + i); 
+        }
+
+        buildRow(newRow, nextNumber, mode);
+
+        totalCutAmount += 1;
+        
+        // Track this row to apply event listeners later
+        currentNewRows.push(newRow);
     }
 
-
-    if (mode === "between" && clickedButton) {
-        const currentRow = clickedButton.closest("tr");
-        const input = currentRow.querySelector("td input");
-
-        let base = parseInt(input?.value) || 0;
-
-        nextNumber = base + 1;
-
-        const index = currentRow.rowIndex;
-        newRow = table.insertRow(index + 1);
-    }
-
-    buildRow(newRow, nextNumber, mode);
-
-    totalCutAmount += 1;
+    // Update the UI once after all rows are added
     cutAmountUpdate();
 
+    // 3. Apply the resize listeners to all the newly created rows
+    currentNewRows.forEach(newRow => {
         newRow.querySelectorAll('input').forEach(input => {
-        input.addEventListener('input', resizeInput);
-        resizeInput.call(input);
+            input.addEventListener('input', resizeInput);
+            resizeInput.call(input);
+        });
     });
 }
-
 
 function buildRow(row, number, mode) {
     row.className = "invoice-row";
@@ -241,6 +256,7 @@ function applyCutNumbersSequential() {
 
     for (let i = 1; i < allCutNumberElements.length; i++) {
         allCutNumberElements[i].value = base + i;
+        
         resizeInput.call(allCutNumberElements[i]);
     }
 }
@@ -346,9 +362,16 @@ input.forEach(input =>{
 
 function resizeInput() {
     const workerName = document.getElementById("workerName");
+    const cutNumber = document.getElementById("cutNumberInputID");
+    const moneyAmountField = document.getElementById("moneyAmountFieldsID");
 
-    workerName.style.width = (workerName.value.length - .5) + "ch";
-    this.style.width = (this.value.length + 1) + "ch";
+
+    workerName.style.width = (workerName.value.length ) + "ch";
+    cutNumber.style.width = (cutNumber.value.length) + "ch";
+
+    moneyAmountField.style.width = (moneyAmountField.value.length + 5) + "ch";
+
+    this.style.width = (this.value.length + 20) + "ch";
 
 }
 
