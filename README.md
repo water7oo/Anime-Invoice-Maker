@@ -16,3 +16,10 @@ Fixes:
 Added clear column to the money amount field
 Added JSON template download
 Fixed UI Inconsistencies
+
+Invoice Maker v.1.2
+
+Fixes:
+
+Added text field dynamic typing
+Fixed UI Inconsistencies
